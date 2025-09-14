@@ -41,4 +41,13 @@ public class UserServiceImpl implements UserService {
         return repo.findById(id);
     }
 
+    @Override
+    public Long getLocalUserIdOrThrow(String kcIss, String kcSub) {
+         return repo.findByKcIssAndKcSub(kcIss, kcSub)
+            .map(User::getId)
+            .orElseThrow(() -> new UserNotProvisionedException(
+                "User with kc_iss=%s kc_sub=%s is not provisioned".formatted(kcIss, kcSub)
+            ));
+    }
+
 }

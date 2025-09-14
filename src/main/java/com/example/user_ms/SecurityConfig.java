@@ -15,6 +15,7 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, UserService userService) throws Exception {
         http
+            .cors(c -> {})
             .authorizeHttpRequests(reg -> reg
                 .requestMatchers("/actuator/health").permitAll()
                 .requestMatchers("/me/**").authenticated()
