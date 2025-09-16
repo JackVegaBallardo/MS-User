@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: user-ms
+
+  datasource:
+    url: jdbc:postgresql://postgres-user:5432/user_db
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak-sv:8080/realms/master
+
+server:
+  port: 8071

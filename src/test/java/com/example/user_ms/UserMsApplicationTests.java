@@ -8,6 +8,7 @@ class UserMsApplicationTests {
 
 	@Test
 	void contextLoads() {
+		assert(true);
 	}
 
 }
