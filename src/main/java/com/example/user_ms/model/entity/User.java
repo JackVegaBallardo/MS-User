@@ -1,6 +1,4 @@
-package com.example.user_ms;
-
-import java.time.LocalDateTime;
+package com.example.user_ms.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,8 +1,12 @@
-package com.example.user_ms;
+package com.example.user_ms.service;
 
 import java.util.Map;
 import java.util.Optional;
 
+import com.example.user_ms.exception.UserNotProvisionedException;
+import com.example.user_ms.model.entity.User;
+import com.example.user_ms.repository.UserRepository;
+import com.example.user_ms.service.UserService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +14,6 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     private final UserRepository repo;
 
     public UserServiceImpl(UserRepository repo) {

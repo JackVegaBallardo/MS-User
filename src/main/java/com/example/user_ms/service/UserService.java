@@ -1,8 +1,9 @@
-package com.example.user_ms;
+package com.example.user_ms.service;
 
 import java.util.Map;
 import java.util.Optional;
 
+import com.example.user_ms.model.entity.User;
 import org.springframework.data.jpa.repository.Query;
 
 public interface UserService {
