@@ -3,18 +3,19 @@ package com.example.user_ms.service;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
+
 import com.example.user_ms.exception.UserNotProvisionedException;
 import com.example.user_ms.model.entity.User;
 import com.example.user_ms.repository.UserRepository;
-import com.example.user_ms.service.UserService;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private final UserRepository repo;
+
+    private  UserRepository repo;
 
     public UserServiceImpl(UserRepository repo) {
         this.repo = repo;
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
         if (existing.isPresent()) return existing.get().getId();
 
         try {
-            var u = new User();
+            var u = new com.example.user_ms.model.entity.User();
             u.setKcIss(kcIss);
             u.setKcSub(kcSub);
             var preferred = (String) claims.getOrDefault("preferred_username", null);

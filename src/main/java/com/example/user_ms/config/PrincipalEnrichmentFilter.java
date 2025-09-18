@@ -2,8 +2,8 @@ package com.example.user_ms.config;
 
 
 import com.example.user_ms.model.dto.CustomUserPrincipal;
-
 import com.example.user_ms.service.UserService;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

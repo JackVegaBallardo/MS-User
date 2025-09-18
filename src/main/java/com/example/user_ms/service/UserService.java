@@ -3,8 +3,11 @@ package com.example.user_ms.service;
 import java.util.Map;
 import java.util.Optional;
 
-import com.example.user_ms.model.entity.User;
 import org.springframework.data.jpa.repository.Query;
+
+import com.example.user_ms.model.entity.User;
+
+
 
 public interface UserService {
     Long ensureUser(String kcIss, String kcSub, Map<String, Object> claims);
