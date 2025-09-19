@@ -1,5 +1,6 @@
 package com.example.user_ms.service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -15,7 +16,7 @@ import jakarta.transaction.Transactional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private  UserRepository repo;
+    private final  UserRepository repo;
 
     public UserServiceImpl(UserRepository repo) {
         this.repo = repo;
@@ -52,6 +53,11 @@ public class UserServiceImpl implements UserService {
             .orElseThrow(() -> new UserNotProvisionedException(
                 "User with kc_iss=%s kc_sub=%s is not provisioned".formatted(kcIss, kcSub)
             ));
+    }
+
+    @Override
+    public List<Long> findAcceptedFriendIds(Long userId) {
+        return repo.findAcceptedFriendIds(userId);
     }
 
 }

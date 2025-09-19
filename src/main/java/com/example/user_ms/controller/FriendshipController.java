@@ -23,7 +23,7 @@ import static com.example.user_ms.mapper.UserMapper.USER_MAPPER;
 @RequestMapping("/api/friendships")
 public class FriendshipController {
 
-    private FriendshipService friendshipService;
+    private final FriendshipService friendshipService;
 
     public FriendshipController(FriendshipService friendshipService){
           this.friendshipService=friendshipService;

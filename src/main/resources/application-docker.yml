@@ -30,6 +30,13 @@ spring:
       fetch-registry: true
       healthcheck:
         enabled: true
+  
+  kafka:
+    bootstrap-servers: kafka:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${server.port}

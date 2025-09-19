@@ -1,15 +1,19 @@
 package com.example.user_ms.service;
 
+import com.example.user_ms.event.UserEvent;
 import com.example.user_ms.model.entity.Friendship;
 import com.example.user_ms.model.entity.FriendshipStatus;
 import com.example.user_ms.model.entity.User;
 
+import org.mapstruct.control.MappingControl.Use;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import com.example.user_ms.repository.FriendshipRepository;
 import com.example.user_ms.repository.FriendshipStatusRepository;
 import com.example.user_ms.repository.UserRepository;
+import com.example.user_ms.util.JsonUtil;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,16 +23,23 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class FriendShipServiceImp implements FriendshipService{
-    @Autowired
-    private  UserRepository userRepository;
 
 
-    private FriendshipRepository friendshipRepository;
-    @Autowired  
-    private  FriendshipStatusRepository statusRepository;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+
+
+    private final  UserRepository userRepository;
+
+
+    private final FriendshipRepository friendshipRepository;
+
+    private final  FriendshipStatusRepository statusRepository;
     
-    public FriendShipServiceImp(FriendshipRepository friendshipRepository){
+    public FriendShipServiceImp(FriendshipRepository friendshipRepository, UserRepository userRepository, FriendshipStatusRepository statusRepository, KafkaTemplate<String, String> kafkaTemplate){
         this.friendshipRepository=friendshipRepository;
+        this.userRepository = userRepository;
+        this.statusRepository = statusRepository;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     @Override
@@ -105,6 +116,12 @@ public List<User> getFriends(Long userId) {
         }
 
         var f = new Friendship();
+
+        User user= userRepository.getReferenceById(receiverId);
+
+        kafkaTemplate.send("user-topic", JsonUtil.toJson(
+           new UserEvent( user.getName())
+        ));
         f.setUser(userRepository.getReferenceById(senderId));
         f.setFriend(userRepository.getReferenceById(receiverId));
         f.setStatus(pending);
